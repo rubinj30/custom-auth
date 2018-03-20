@@ -3,6 +3,7 @@ require("dotenv").config()
 const express = require('express')
 const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
+const logger = require('morgan')
 
 const app = express()
 
@@ -21,11 +22,14 @@ connection.on('error', (err) => {
 
 app.use(express.static(__dirname + '/client/build/'))
 
+const UsersController = require('./routes/users')
+app.use('/api/users', UsersController)
 
-app.get('*', (req, res) => {
+app.get('/', (req, res) => {
     res.sendFile(__dirname + '/client/build/index.html')
 })
 
+app.use(logger('dev'))
 app.use(bodyParser.json())
 app.get('/', (req, res) => {
     res.send('Hello world!')

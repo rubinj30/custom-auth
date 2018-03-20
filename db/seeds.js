@@ -15,7 +15,7 @@ const jonathan = new User({
 
 const mike = new User({
     firstName: 'Mike',
-    lastName: 'Jordan',
+    lastName: 'Myers',
     phoneNumber: '4045551212',
     emailAddress: 'mike@test.com',
     password: 'password'
