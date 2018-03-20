@@ -21,7 +21,7 @@ router.get('/', async (request, response) => {
 router.get('/:id', async (request, response) => {
     try {
         const user = await User.findById(request.params.id)
-        if (user.length < 1) {
+        if (!user) {
             response.json({error: "No user found"})
         }
         else {
