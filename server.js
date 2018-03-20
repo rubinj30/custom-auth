@@ -21,6 +21,8 @@ connection.on('error', (err) => {
 })
 
 app.use(express.static(__dirname + '/client/build/'))
+app.use(logger('dev'))
+app.use(bodyParser.json())
 
 const UsersController = require('./routes/users')
 app.use('/api/users', UsersController)
@@ -29,8 +31,7 @@ app.get('/', (req, res) => {
     res.sendFile(__dirname + '/client/build/index.html')
 })
 
-app.use(logger('dev'))
-app.use(bodyParser.json())
+
 app.get('/', (req, res) => {
     res.send('Hello world!')
 })
