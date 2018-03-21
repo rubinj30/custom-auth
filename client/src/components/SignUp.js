@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { LogoImg, CenterColumn, InputField, ButtonContainer, Button, ColumnTitle, StyledLink } from './styled-components/Styling'
+import axios from 'axios'
 
 class SignUp extends Component {
     state = {
@@ -22,11 +23,23 @@ class SignUp extends Component {
         this.setState({ newUser })
     }
 
+    addNewUser = async (event) => {
+        event.preventDefault()
+        const payload = {
+            firstName: this.state.firstName,
+            lastName: this.state.lastName,
+            emailAddress: this.state.emailAddress,
+            phoneNumber: this.state.phoneNumber,
+            password: this.state.password
+        }
+        await axios.post('/api/users/', payload)
+    }
+
     render() {
         return (
             <div>
                 <LogoImg width="200" src="https://assets.hmwallace.com//sources/images/supply_logo-unboxed.svg" alt="supply.com logo" />
-                <form action="">
+                <form onSubmit={this.addNewUser}>
                     <CenterColumn>
                         <ColumnTitle>Sign Up</ColumnTitle>
                         <InputField onChange={this.handleChange} 
