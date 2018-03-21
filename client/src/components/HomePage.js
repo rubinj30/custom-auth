@@ -1,11 +1,18 @@
 import React, { Component } from 'react';
-import { LogoImg } from './styled-components/Styling'
+import { Link } from 'react-router-dom'
+import { LogoImg, Button, CenterColumn, ButtonContainer } from './styled-components/Styling'
 
 class HomePage extends Component {
     render() {
         return (
             <div>
-                <LogoImg width="200" src="https://assets.hmwallace.com//sources/images/supply_logo-unboxed.svg" alt=""/>
+                <LogoImg width="200" src="https://assets.hmwallace.com//sources/images/supply_logo-unboxed.svg" alt="" />
+                <CenterColumn>
+                    <ButtonContainer>
+                        <Link to={'/login'}><Button>Log In</Button></Link>
+                        <Link to={'/signup'}><Button>Register</Button></Link>
+                    </ButtonContainer>
+                </CenterColumn>
             </div>
         );
     }
