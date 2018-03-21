@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { InputField, LogInContainer, LogoImg, Button } from './styled-components/Styling'
+import { InputField, CenterColumn, LogoImg, Button, ButtonContainer } from './styled-components/Styling'
 
 class LogIn extends Component {
     render() {
@@ -7,14 +7,17 @@ class LogIn extends Component {
             <div>
                 <LogoImg width="200" src="https://assets.hmwallace.com//sources/images/supply_logo-unboxed.svg" alt="" />
 
-                <LogInContainer>
+                <CenterColumn>
                     <InputField placeholder="username" />
                     <InputField placeholder="password" />
-                    <Button>Log In</Button>
-                </LogInContainer>
+                    <ButtonContainer>
+                        <Button>Log In</Button>
+                        <Button>Back to Home</Button>
+                    </ButtonContainer>
+                </CenterColumn>
             </div>
-        );
-    }
-}
-
+                    );
+                }
+            }
+            
 export default LogIn;
