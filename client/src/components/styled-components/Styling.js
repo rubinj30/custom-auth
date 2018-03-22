@@ -18,7 +18,7 @@ export const CenterColumn = styled.div`
     align-items: center;
 `
 
-export const Button = styled.div`
+export const Button = styled.button`
     font-size: 16px;
     text-transform: uppercase;
     border: 1px solid #228848;
