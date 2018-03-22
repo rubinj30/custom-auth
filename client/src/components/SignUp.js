@@ -24,15 +24,22 @@ class SignUp extends Component {
     }
 
     addNewUser = async (event) => {
-        event.preventDefault()
-        const payload = {
-            firstName: this.state.firstName,
-            lastName: this.state.lastName,
-            emailAddress: this.state.emailAddress,
-            phoneNumber: this.state.phoneNumber,
-            password: this.state.password
+        try {
+            event.preventDefault()
+            const payload = {
+                firstName: this.state.newUser.firstName,
+                lastName: this.state.newUser.lastName,
+                phoneNumber: this.state.newUser.phoneNumber,
+                emailAddress: this.state.newUser.emailAddress,
+                password: this.state.newUser.password
+            }
+            console.log(payload)
+            console.log(this.state.newUser)
+            await axios.post('/api/users/', this.state.newUser)
         }
-        await axios.post('/api/users/', payload)
+        catch (err) {
+            console.log(err)
+        }
     }
 
     render() {
@@ -42,17 +49,17 @@ class SignUp extends Component {
                 <form onSubmit={this.addNewUser}>
                     <CenterColumn>
                         <ColumnTitle>Sign Up</ColumnTitle>
-                        <InputField onChange={this.handleChange} 
+                        <InputField onChange={this.handleChange}
                             placeholder="First Name" name="firstName" required />
-                        <InputField onChange={this.handleChange} 
+                        <InputField onChange={this.handleChange}
                             placeholder="Last Name" name="lastName" required />
-                        <InputField onChange={this.handleChange} 
+                        <InputField onChange={this.handleChange}
                             placeholder="E-mail" name="emailAddress" required />
-                        <InputField onChange={this.handleChange} 
+                        <InputField onChange={this.handleChange}
                             placeholder="Phone Number" name="phoneNumber" required />
-                        <InputField onChange={this.handleChange} 
+                        <InputField onChange={this.handleChange}
                             placeholder="Password" name="password" type="password" required />
-                        <InputField onChange={this.handleChange} 
+                        <InputField onChange={this.handleChange}
                             placeholder="Confirm Password" name="confirmPassword" type="password" required />
                         <ButtonContainer>
                             <Button>Sign Up</Button>

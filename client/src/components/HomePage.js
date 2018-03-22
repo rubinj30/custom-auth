@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { LogoImg, Button, CenterColumn, ButtonContainer, StyledLink, Column  } from './styled-components/Styling'
+import { LogoImg, Button, CenterColumn, ButtonContainer, StyledLink } from './styled-components/Styling'
 
 class HomePage extends Component {
     render() {
