@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components'
-import { LogoImg, CenterColumn, InputField, ButtonContainer, Button, ColumnTitle, StyledLink } from './styled-components/Styling'
+import { LogoImg, CenterColumn, Button, ColumnTitle} from './styled-components/Styling'
+import EditUserForm from './EditUserForm'
 import axios from 'axios'
 
 class UserProfile extends Component {
@@ -19,7 +20,9 @@ class UserProfile extends Component {
         this.setState({ user: response.data })
     }
 
-    toggle
+    toggleEdit = () => {
+        this.setState({ editShowing: !this.state.editShowing })
+    }
 
     render() {
         return (
@@ -27,15 +30,19 @@ class UserProfile extends Component {
                 <LogoImg width="200" src="https://assets.hmwallace.com//sources/images/supply_logo-unboxed.svg" alt="supply.com logo" />
                 <CenterColumn>
                     <ColumnTitle>User Profile</ColumnTitle>
-                    <Button>Edit</Button>
-                    {this.state.editShowing ?
-                        <div>
-                            <ProfileDiv>{this.state.user.firstName}</ProfileDiv>
-                            <ProfileDiv>{this.state.user.lastName}</ProfileDiv>
-                            <ProfileDiv>{this.state.user.emailAddress}</ProfileDiv>
-                            <ProfileDiv>{this.state.user.phoneNumber}</ProfileDiv>
-                        </div>
-                        : null
+                    <Button onClick={this.toggleEdit}>Edit</Button>
+                    {
+                        this.state.editShowing ?
+                            <div>
+                                <ProfileDiv>{this.state.user.firstName}</ProfileDiv>
+                                <ProfileDiv>{this.state.user.lastName}</ProfileDiv>
+                                <ProfileDiv>{this.state.user.emailAddress}</ProfileDiv>
+                                <ProfileDiv>{this.state.user.phoneNumber}</ProfileDiv>
+                            </div>
+                            :
+                            <EditUserForm
+                                user={this.state.user}
+                            />
                     }
                 </CenterColumn>
             </div>
