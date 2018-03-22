@@ -4,11 +4,28 @@ import { CenterColumn, InputField, ButtonContainer, Button } from './styled-comp
 class EditUserForm extends Component {
 
     state = {
+        editUser: {
+            firstName: this.props.user.firstName,
+            lastName: this.props.user.lastName,
+            emailAddress: this.props.user.emailAddress,
+            phoneNumber: this.props.user.phoneNumber,
+            password: '',
+            confirmPassword: ''
+        }
 
+    }
+    
+    handleChange = (event) => {
+        event.preventDefault()
+        const attributeName = event.target.name
+        const attributeValue = event.target.value
+        const editUser = { ...this.state.editUser }
+        editUser[attributeName] = attributeValue
+        this.setState({ editUser })
     }
 
     updateUser = () => {
-
+        
     }
 
     render() {
@@ -16,13 +33,13 @@ class EditUserForm extends Component {
             <form onSubmit={this.updateUser}>
                 <CenterColumn>
                     <InputField onChange={this.handleChange}
-                        placeholder="First Name" name="firstName" value={this.props.user.firstName} required />
+                        placeholder="First Name" name="firstName" value={this.state.editUser.firstName} required />
                     <InputField onChange={this.handleChange}
-                        placeholder="Last Name" name="lastName" value={this.props.user.lastName} required />
+                        placeholder="Last Name" name="lastName" value={this.state.editUser.lastName} required />
                     <InputField onChange={this.handleChange}
-                        placeholder="E-mail" name="emailAddress" value={this.props.user.emailAddress} required />
+                        placeholder="E-mail" name="emailAddress" value={this.state.editUser.emailAddress} required />
                     <InputField onChange={this.handleChange}
-                        placeholder="Phone Number" name="phoneNumber" value={this.props.user.phoneNumber} required />
+                        placeholder="Phone Number" name="phoneNumber" value={this.state.editUser.phoneNumber} required />
                     <InputField onChange={this.handleChange}
                         placeholder="Password" name="password" type="password" required />
                     <InputField onChange={this.handleChange}
