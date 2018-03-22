@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { LogoImg, CenterColumn, InputField, ButtonContainer, Button, ColumnTitle, StyledLink } from './styled-components/Styling'
 import axios from 'axios'
+import swal from 'sweetalert'
+const R = require('ramda');
 
 class SignUp extends Component {
     state = {
@@ -11,7 +13,20 @@ class SignUp extends Component {
             phoneNumber: '',
             password: '',
             confirmPassword: ''
-        }
+        },
+        userEmailAddresses: []
+    }
+
+    componentWillMount = () => {
+        this.getAllExistingEmails()
+    }
+
+    getAllExistingEmails = async() => {
+        const response = await axios.get('/api/users')
+        const userEmailAddresses = response.data.map((user)=> {
+            return user.emailAddress
+        })
+        this.setState({userEmailAddresses})
     }
 
     handleChange = (event) => {
@@ -26,16 +41,18 @@ class SignUp extends Component {
     addNewUser = async (event) => {
         try {
             event.preventDefault()
-            const payload = {
-                firstName: this.state.newUser.firstName,
-                lastName: this.state.newUser.lastName,
-                phoneNumber: this.state.newUser.phoneNumber,
-                emailAddress: this.state.newUser.emailAddress,
-                password: this.state.newUser.password
-            }
-            console.log(payload)
+            if (this.state.newUser.password.length < 2) {
+                swal('The password must be at least 8 characters')
+            } else if (this.state.newUser.password !== this.state.newUser.confirmPassword) {
+                swal('The password and confirmation must match!')
+            } else if (!this.state.newUser.emailAddress.includes("@") || !this.state.newUser.emailAddress.includes(".")) {
+                swal('Make sure you are using a valid e-mail address!')
+            } else if (R.contains(this.state.newUser.emailAddress, this.state.userEmailAddresses)) {
+                swal('That user already exists')
+            } else {
             console.log(this.state.newUser)
             await axios.post('/api/users/', this.state.newUser)
+            }
         }
         catch (err) {
             console.log(err)
