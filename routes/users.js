@@ -35,9 +35,17 @@ router.get('/:id', async (request, response) => {
 
 router.post('/', async (request, response) => {
     try {
-        const newUser = await User.create(request.body)
-        await newUser.save()
-        response.json(newUser)
+        const email = await User.find({'emailAddress': request.body.emailAddress})
+        if (email.length < 1) {
+            const newUser = await User.create(request.body)
+            newUser.save()
+            response.json({
+                newUser,
+                redirectToProfile: true
+            })
+        } else {
+            console.log("ELSE");
+        }
     }
     catch (err) {
         console.log(err)

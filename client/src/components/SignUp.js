@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom'
 import { LogoImg, CenterColumn, InputField, ButtonContainer, Button, ColumnTitle, StyledLink } from './styled-components/Styling'
 import axios from 'axios'
 import swal from 'sweetalert'
@@ -14,19 +15,20 @@ class SignUp extends Component {
             password: '',
             confirmPassword: ''
         },
-        userEmailAddresses: []
+        userEmailAddresses: [],
+        redirectToProfile: false
     }
 
     componentWillMount = () => {
         this.getAllExistingEmails()
     }
 
-    getAllExistingEmails = async() => {
+    getAllExistingEmails = async () => {
         const response = await axios.get('/api/users')
-        const userEmailAddresses = response.data.map((user)=> {
+        const userEmailAddresses = response.data.map((user) => {
             return user.emailAddress
         })
-        this.setState({userEmailAddresses})
+        this.setState({ userEmailAddresses })
     }
 
     handleChange = (event) => {
@@ -45,13 +47,19 @@ class SignUp extends Component {
                 swal('The password must be at least 8 characters')
             } else if (this.state.newUser.password !== this.state.newUser.confirmPassword) {
                 swal('The password and confirmation must match!')
-            } else if (!this.state.newUser.emailAddress.includes("@") || !this.state.newUser.emailAddress.includes(".")) {
-                swal('Make sure you are using a valid e-mail address!')
-            } else if (R.contains(this.state.newUser.emailAddress, this.state.userEmailAddresses)) {
-                swal('That user already exists')
+                // } else if (!this.state.newUser.emailAddress.includes("@") || !this.state.newUser.emailAddress.includes(".")) {
+                //     swal('Make sure you are using a valid e-mail address!')
+                // } else if (R.contains(this.state.newUser.emailAddress, this.state.userEmailAddresses)) {
+                //     swal('That user already exists')
             } else {
-            console.log(this.state.newUser)
-            await axios.post('/api/users/', this.state.newUser)
+                console.log(this.state.newUser)
+                const response = await axios.post('/api/users/', this.state.newUser)
+                console.log("USER", response.data.newUser)
+                this.setState(
+                    {
+                        newUser: response.data.newUser,
+                        redirectToProfile: response.data.redirectToProfile
+                    })
             }
         }
         catch (err) {
@@ -60,6 +68,9 @@ class SignUp extends Component {
     }
 
     render() {
+        if (this.state.redirectToProfile) {
+            return <Redirect to={`/${this.state.newUser._id}`} />
+        }
         return (
             <div>
                 <LogoImg width="200" src="https://assets.hmwallace.com//sources/images/supply_logo-unboxed.svg" alt="supply.com logo" />
