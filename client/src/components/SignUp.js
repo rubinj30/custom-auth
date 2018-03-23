@@ -3,6 +3,7 @@ import { Redirect } from 'react-router-dom'
 import { LogoImg, CenterColumn, InputField, ButtonContainer, Button, ColumnTitle, StyledLink } from './styled-components/Styling'
 import axios from 'axios'
 import swal from 'sweetalert'
+import validator from 'validator'
 const R = require('ramda');
 
 class SignUp extends Component {
@@ -47,7 +48,7 @@ class SignUp extends Component {
                 swal('The password must be at least 8 characters')
             } else if (this.state.newUser.password !== this.state.newUser.confirmPassword) {
                 swal('The password and confirmation must match!')
-                } else if (!this.state.newUser.emailAddress.includes("@") || !this.state.newUser.emailAddress.includes(".")) {
+                } else if (!validator.isEmail(this.state.newUser.emailAddress)) {
                     swal('Make sure you are using a valid e-mail address!')
                 } else if (R.contains(this.state.newUser.emailAddress, this.state.userEmailAddresses)) {
                     swal('That user already exists')
