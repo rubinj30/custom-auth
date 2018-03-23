@@ -47,12 +47,12 @@ class SignUp extends Component {
                 swal('The password must be at least 8 characters')
             } else if (this.state.newUser.password !== this.state.newUser.confirmPassword) {
                 swal('The password and confirmation must match!')
-                // } else if (!this.state.newUser.emailAddress.includes("@") || !this.state.newUser.emailAddress.includes(".")) {
-                //     swal('Make sure you are using a valid e-mail address!')
-                // } else if (R.contains(this.state.newUser.emailAddress, this.state.userEmailAddresses)) {
-                //     swal('That user already exists')
+                } else if (!this.state.newUser.emailAddress.includes("@") || !this.state.newUser.emailAddress.includes(".")) {
+                    swal('Make sure you are using a valid e-mail address!')
+                } else if (R.contains(this.state.newUser.emailAddress, this.state.userEmailAddresses)) {
+                    swal('That user already exists')
             } else {
-                console.log(this.state.newUser)
+                // probably need IF statement to know how to handle existing user differently, which will be diff json response
                 const response = await axios.post('/api/users/', this.state.newUser)
                 console.log("USER", response.data.newUser)
                 this.setState(
