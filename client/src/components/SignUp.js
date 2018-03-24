@@ -44,6 +44,8 @@ class SignUp extends Component {
                 if (response.data.error) {
                     swal(response.data.error)
                 } else {
+                    console.log(response.data.newUser)
+                    localStorage.setItem('emailAddress', response.data.newUser.emailAddress)
                     this.setState(
                         {
                             newUser: response.data.newUser,
@@ -59,8 +61,9 @@ class SignUp extends Component {
 
     render() {
         if (this.state.redirectToProfile) {
-            return <Redirect to={`/${this.state.newUser._id}`} />
+            return <Redirect to={`/${this.state.newUser.emailAddress}`} />
         }
+        
         return (
             <div>
                 <LogoImg width="200" src="https://assets.hmwallace.com//sources/images/supply_logo-unboxed.svg" alt="supply.com logo" />

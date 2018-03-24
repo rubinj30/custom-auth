@@ -27,6 +27,12 @@ router.get('/:emailAddress', async (request, response) => {
             response.json({error: "No user found"})
         }
         else {
+            // bcrypt.compare(myPlaintextPassword, hash, function(err, res) {
+            //     // res == true
+            // });
+            // bcrypt.compare(someOtherPlaintextPassword, hash, function(err, res) {
+            //     // res == false
+            // });
             response.json(user)
         }
     }
