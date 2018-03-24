@@ -1,5 +1,7 @@
 const express = require('express')
 const User = require('../db/models/User')
+var passport = require('passport')
+    , LocalStrategy = require('passport-local').Strategy;
 
 const router = express.Router()
 
@@ -7,7 +9,7 @@ router.get('/', async (request, response) => {
     try {
         const users = await User.find({})
         if (users.length < 1) {
-            response.json({error: "No users found"})
+            response.json({ error: "No users found" })
         }
         else {
             response.json(users)
@@ -22,7 +24,7 @@ router.get('/:id', async (request, response) => {
     try {
         const user = await User.findById(request.params.id)
         if (!user) {
-            response.json({error: "No user found"})
+            response.json({ error: "No user found" })
         }
         else {
             response.json(user)
@@ -35,7 +37,7 @@ router.get('/:id', async (request, response) => {
 
 router.post('/', async (request, response) => {
     try {
-        const email = await User.find({'emailAddress': request.body.emailAddress})
+        const email = await User.find({ 'emailAddress': request.body.emailAddress })
         if (email.length < 1) {
             const newUser = await User.create(request.body)
             newUser.save()
@@ -44,13 +46,18 @@ router.post('/', async (request, response) => {
                 redirectToProfile: true
             })
         } else {
-            response.json({error: 'That e-mail addresss is already in use'})
+            response.json({ error: 'That e-mail addresss is already in use' })
         }
     }
     catch (err) {
         console.log(err)
     }
 })
+
+router.post('/login', passport.authenticate('local', { failureRedirect: '/test' }),
+    function (req, res) {
+        res.redirect('/');
+    });
 
 router.delete('/:userId', async (request, response) => {
     try {
@@ -64,7 +71,7 @@ router.delete('/:userId', async (request, response) => {
 
 router.patch('/:userId', async (request, response) => {
     try {
-        const updatedUserInfo = await User.findByIdAndUpdate(request.params.userId, request.body, {new: true})
+        const updatedUserInfo = await User.findByIdAndUpdate(request.params.userId, request.body, { new: true })
         response.json(updatedUserInfo)
     }
     catch (err) {

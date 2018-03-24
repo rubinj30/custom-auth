@@ -6,7 +6,7 @@ class LogIn extends Component {
         return (
             <div>
                 <LogoImg width="200" src="https://assets.hmwallace.com//sources/images/supply_logo-unboxed.svg" alt="supply.com logo"  />
-                <form action="">
+                <form action="/users/login" method="post">
                     <CenterColumn>
                         <ColumnTitle>Log In</ColumnTitle>
                         <InputField placeholder="username" required/>
