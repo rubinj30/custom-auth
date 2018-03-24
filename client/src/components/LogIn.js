@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { InputField, CenterColumn, LogoImg, Button, ButtonContainer, ColumnTitle, StyledLink } from './styled-components/Styling'
+import axios from 'axios'
 
 class LogIn extends Component {
 
@@ -16,19 +17,22 @@ class LogIn extends Component {
 
     logUserIn = async (event) => {
         event.preventDefault()
+        
         const payload = {
             emailAddress: this.state.emailAddress,
             password: this.state.password
         }
-        const response = await axios.get('/api/users', payload)
-        console.log(response.data)
+
+        console.log("PAYLOAD", payload)
+        const response = await axios.post('/api/users/login', payload)
+        console.log("RESPONSE", response.data)
     }
 
     render() {       
         return (
             <div>
                 <LogoImg width="200" src="https://assets.hmwallace.com//sources/images/supply_logo-unboxed.svg" alt="supply.com logo"  />
-                <form action="">
+                <form onSubmit={this.logUserIn}>
                     <CenterColumn>
                         <ColumnTitle>Log In</ColumnTitle>
                         <InputField onChange={this.handleChange} placeholder="E-mail Address" name="emailAddress" required/>

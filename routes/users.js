@@ -20,6 +20,23 @@ router.get('/', async (request, response) => {
     }
 })
 
+router.post('/login', async (request, response) => {
+    console.log(request.body.emailAddress)
+    console.log(request.body.password)
+    const user = await User.find({ 'emailAddress': request.body.emailAddress })
+    console.log("TESTING", user[0].password)
+    bcrypt.compare(request.body.password, user[0].password, function (err, res) {
+        if (bcrypt.compareSync(request.body.password, user[0].password)) {
+            console.log("CORRECT PASSWORD");
+        } else {
+            console.log("INCORRECT PASSWORD");
+        }
+    })
+
+    // bcrypt.compare(request.body.password, hash, function(err, res) {
+    //     console.log("FALSE", res)
+})
+
 router.get('/:emailAddress', async (request, response) => {
     try {
         // console.log(request.params.emailAddress)
@@ -36,6 +53,8 @@ router.get('/:emailAddress', async (request, response) => {
         console.log(err)
     }
 })
+
+
 
 router.post('/', async (request, response) => {
     try {
