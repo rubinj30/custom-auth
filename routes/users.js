@@ -44,7 +44,7 @@ router.post('/', async (request, response) => {
                 redirectToProfile: true
             })
         } else {
-            console.log("ELSE");
+            response.json({error: 'That e-mail addresss is already in use'})
         }
     }
     catch (err) {

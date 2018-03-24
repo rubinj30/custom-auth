@@ -16,20 +16,8 @@ class SignUp extends Component {
             password: '',
             confirmPassword: ''
         },
-        userEmailAddresses: [],
+        // userEmailAddresses: [],
         redirectToProfile: false
-    }
-
-    componentWillMount = () => {
-        this.getAllExistingEmails()
-    }
-
-    getAllExistingEmails = async () => {
-        const response = await axios.get('/api/users')
-        const userEmailAddresses = response.data.map((user) => {
-            return user.emailAddress
-        })
-        this.setState({ userEmailAddresses })
     }
 
     handleChange = (event) => {
@@ -48,19 +36,20 @@ class SignUp extends Component {
                 swal('The password must be at least 8 characters')
             } else if (this.state.newUser.password !== this.state.newUser.confirmPassword) {
                 swal('The password and confirmation must match!')
-                } else if (!validator.isEmail(this.state.newUser.emailAddress)) {
-                    swal('Make sure you are using a valid e-mail address!')
-                } else if (R.contains(this.state.newUser.emailAddress, this.state.userEmailAddresses)) {
-                    swal('That user already exists')
+            } else if (!validator.isEmail(this.state.newUser.emailAddress)) {
+                swal('Make sure you are using a valid e-mail address!')
             } else {
-                // probably need IF statement to know how to handle existing user differently, which will be diff json response
                 const response = await axios.post('/api/users/', this.state.newUser)
-                console.log("USER", response.data.newUser)
-                this.setState(
-                    {
-                        newUser: response.data.newUser,
-                        redirectToProfile: response.data.redirectToProfile
-                    })
+
+                if (response.data.error) {
+                    swal(response.data.error)
+                } else {
+                    this.setState(
+                        {
+                            newUser: response.data.newUser,
+                            redirectToProfile: response.data.redirectToProfile
+                        })
+                }
             }
         }
         catch (err) {
