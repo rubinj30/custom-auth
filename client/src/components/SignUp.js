@@ -4,7 +4,7 @@ import { LogoImg, CenterColumn, InputField, ButtonContainer, Button, ColumnTitle
 import axios from 'axios'
 import swal from 'sweetalert'
 import validator from 'validator'
-const R = require('ramda');
+// const R = require('ramda');
 
 class SignUp extends Component {
     state = {
