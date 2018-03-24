@@ -2,15 +2,27 @@ import React, { Component } from 'react';
 import { InputField, CenterColumn, LogoImg, Button, ButtonContainer, ColumnTitle, StyledLink } from './styled-components/Styling'
 
 class LogIn extends Component {
-    render() {
+
+    state = {
+        emailAddress: '',
+        password: '',
+        redirectToProfile: false
+    }
+
+    handleChange = (event) => {
+        this.setState({ [event.target.name]: event.target.value })
+        event.preventDefault()
+    }
+
+    render() {       
         return (
             <div>
                 <LogoImg width="200" src="https://assets.hmwallace.com//sources/images/supply_logo-unboxed.svg" alt="supply.com logo"  />
                 <form action="">
                     <CenterColumn>
                         <ColumnTitle>Log In</ColumnTitle>
-                        <InputField placeholder="username" required/>
-                        <InputField placeholder="password" required/>
+                        <InputField onChange={this.handleChange} placeholder="E-mail Address" name="emailAddress" required/>
+                        <InputField onChange={this.handleChange} placeholder="Password" name="password" required/>
                         <ButtonContainer>
                             <Button>Log In</Button>
                             <StyledLink to={'/'}><Button>Back to Home</Button></StyledLink>
@@ -18,7 +30,7 @@ class LogIn extends Component {
                     </CenterColumn>
                 </form>
             </div>
-        );
+        )
     }
 }
 
