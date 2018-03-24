@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom'
 import { InputField, CenterColumn, LogoImg, Button, ButtonContainer, ColumnTitle, StyledLink } from './styled-components/Styling'
 import axios from 'axios'
 
@@ -25,10 +26,19 @@ class LogIn extends Component {
 
         console.log("PAYLOAD", payload)
         const response = await axios.post('/api/users/login', payload)
-        console.log("RESPONSE", response.data)
+        console.log(response.data);
+        const newState = response.data
+        this.setState({
+            redirectToProfile: response.data.redirectToProfile,
+            emailAddress: response.data.emailAddress
+        })
     }
 
-    render() {       
+    render() {
+        if (this.state.redirectToProfile) {
+            return <Redirect to={`/${this.state.emailAddress}`} />
+        }
+
         return (
             <div>
                 <LogoImg width="200" src="https://assets.hmwallace.com//sources/images/supply_logo-unboxed.svg" alt="supply.com logo"  />

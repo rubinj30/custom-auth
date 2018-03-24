@@ -22,13 +22,15 @@ router.get('/', async (request, response) => {
 
 router.post('/login', async (request, response) => {
     const user = await User.find({ 'emailAddress': request.body.emailAddress })
-    bcrypt.compare(request.body.password, user[0].password, function (err, res) {
-        if (bcrypt.compareSync(request.body.password, user[0].password)) {
-            console.log("CORRECT PASSWORD")
-        } else {
-            console.log("INCORRECT PASSWORD")
-        }
-    })
+    if (bcrypt.compareSync(request.body.password, user[0].password)) {
+        console.log("CORRECT PASSWORD")
+        response.json({
+            emailAddress: request.body.emailAddress,
+            redirectToProfile: true
+        })
+    } else {
+        console.log("INCORRECT PASSWORD")
+    }
 })
 
 router.get('/:emailAddress', async (request, response) => {
