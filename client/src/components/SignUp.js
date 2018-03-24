@@ -48,7 +48,6 @@ class SignUp extends Component {
                     localStorage.setItem('emailAddress', response.data.newUser.emailAddress)
                     this.setState(
                         {
-                            newUser: response.data.newUser,
                             redirectToProfile: response.data.redirectToProfile
                         })
                 }
