@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import styled from 'styled-components'
-import { LogoImg, CenterColumn, Button, ColumnTitle} from './styled-components/Styling'
+import { LogoImg, CenterColumn, Button, ColumnTitle } from './styled-components/Styling'
 import EditUserForm from './EditUserForm'
 import axios from 'axios'
 
@@ -36,16 +36,16 @@ class UserProfile extends Component {
                     <Button onClick={this.toggleEdit}>Edit</Button>
                     {
                         this.state.editShowing ?
+                            <EditUserForm
+                                user={this.state.user}
+                            />
+                            :
                             <div>
                                 <ProfileDiv>{this.state.user.firstName}</ProfileDiv>
                                 <ProfileDiv>{this.state.user.lastName}</ProfileDiv>
                                 <ProfileDiv>{this.state.user.emailAddress}</ProfileDiv>
                                 <ProfileDiv>{this.state.user.phoneNumber}</ProfileDiv>
                             </div>
-                            :
-                            <EditUserForm
-                                user={this.state.user}
-                            />
                     }
                 </CenterColumn>
             </div>
