@@ -18,10 +18,12 @@ router.get('/', async (request, response) => {
     }
 })
 
-router.get('/:id', async (request, response) => {
+router.get('/:emailAddress', async (request, response) => {
     try {
-        const user = await User.findById(request.params.id)
-        if (!user) {
+        console.log(request.params.emailAddress)
+        const user = await User.find({'emailAddress': request.params.emailAddress})
+        console.log(user);
+        if (user.length < 1) {
             response.json({error: "No user found"})
         }
         else {
