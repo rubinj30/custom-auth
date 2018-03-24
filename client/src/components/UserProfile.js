@@ -41,7 +41,6 @@ class UserProfile extends Component {
                                 <ProfileDiv>{this.state.user.lastName}</ProfileDiv>
                                 <ProfileDiv>{this.state.user.emailAddress}</ProfileDiv>
                                 <ProfileDiv>{this.state.user.phoneNumber}</ProfileDiv>
-                                <ProfileDiv>Password - {this.state.user.password}</ProfileDiv>
                             </div>
                             :
                             <EditUserForm
