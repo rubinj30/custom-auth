@@ -14,6 +14,16 @@ class LogIn extends Component {
         event.preventDefault()
     }
 
+    logUserIn = async (event) => {
+        event.preventDefault()
+        const payload = {
+            emailAddress: this.state.emailAddress,
+            password: this.state.password
+        }
+        const response = await axios.get('/api/users', payload)
+        console.log(response.data)
+    }
+
     render() {       
         return (
             <div>
