@@ -20,9 +20,9 @@ router.get('/', async (request, response) => {
 
 router.get('/:emailAddress', async (request, response) => {
     try {
-        console.log(request.params.emailAddress)
+        // console.log(request.params.emailAddress)
         const user = await User.find({'emailAddress': request.params.emailAddress})
-        console.log(user);
+        console.log("USER", user);
         if (user.length < 1) {
             response.json({error: "No user found"})
         }
@@ -33,7 +33,7 @@ router.get('/:emailAddress', async (request, response) => {
             // bcrypt.compare(someOtherPlaintextPassword, hash, function(err, res) {
             //     // res == false
             // });
-            response.json(user)
+            response.json(user[0])
         }
     }
     catch (err) {
