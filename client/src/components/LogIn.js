@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom'
 import { InputField, CenterColumn, LogoImg, Button, ButtonContainer, ColumnTitle, StyledLink } from './styled-components/Styling'
 import axios from 'axios'
+import swal from 'sweetalert'
 
 class LogIn extends Component {
 
@@ -18,19 +19,22 @@ class LogIn extends Component {
 
     logUserIn = async (event) => {
         event.preventDefault()
-        
+
         const payload = {
             emailAddress: this.state.emailAddress,
             password: this.state.password
         }
 
-        console.log("PAYLOAD", payload)
         const response = await axios.post('/api/users/login', payload)
-        localStorage.setItem('emailAddress', response.data.emailAddress)
-        this.setState({
-            redirectToProfile: response.data.redirectToProfile,
-            emailAddress: response.data.emailAddress
-        })
+        if (!response.data.error) {
+            localStorage.setItem('emailAddress', response.data.emailAddress)
+            this.setState({
+                redirectToProfile: response.data.redirectToProfile,
+                emailAddress: response.data.emailAddress
+            })
+        } else {
+            swal(response.data.error)
+        }
     }
 
     render() {
@@ -40,12 +44,12 @@ class LogIn extends Component {
 
         return (
             <div>
-                <LogoImg width="200" src="https://assets.hmwallace.com//sources/images/supply_logo-unboxed.svg" alt="supply.com logo"  />
+                <LogoImg width="200" src="https://assets.hmwallace.com//sources/images/supply_logo-unboxed.svg" alt="supply.com logo" />
                 <form onSubmit={this.logUserIn}>
                     <CenterColumn>
                         <ColumnTitle>Log In</ColumnTitle>
-                        <InputField onChange={this.handleChange} placeholder="E-mail Address" name="emailAddress" required/>
-                        <InputField onChange={this.handleChange} placeholder="Password" name="password" required/>
+                        <InputField onChange={this.handleChange} placeholder="E-mail Address" name="emailAddress" required />
+                        <InputField onChange={this.handleChange} placeholder="Password" name="password" required />
                         <ButtonContainer>
                             <Button>Log In</Button>
                             <StyledLink to={'/'}><Button>Back to Home</Button></StyledLink>
