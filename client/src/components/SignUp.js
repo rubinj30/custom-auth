@@ -4,6 +4,8 @@ import { LogoImg, CenterColumn, InputField, ButtonContainer, Button, ColumnTitle
 import axios from 'axios'
 import swal from 'sweetalert'
 import validator from 'validator'
+var isPhoneNumber = require('is-phone-number');
+
 // const R = require('ramda');
 
 class SignUp extends Component {
@@ -36,7 +38,9 @@ class SignUp extends Component {
             } else if (this.state.newUser.password !== this.state.newUser.confirmPassword) {
                 swal('The password and confirmation must match!')
             } else if (!validator.isEmail(this.state.newUser.emailAddress)) {
-                swal('Make sure you are using a valid e-mail address!')
+                swal('You must use a valid e-mail address')
+            } else if (!isPhoneNumber(this.state.newUser.phoneNumber)) {
+                swal('You must use a valid phone number')
             } else {
                 const response = await axios.post('/api/users/', this.state.newUser)
 

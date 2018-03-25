@@ -19,6 +19,7 @@
     "concurrently": "^3.5.1",
     "dotenv": "^5.0.1",
     "express": "^4.16.3",
+    "is-phone-number": "^1.0.4",
     "mongoose": "^5.0.11",
     "morgan": "^1.9.0",
     "ramda": "^0.25.0",
