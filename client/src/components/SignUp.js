@@ -16,7 +16,6 @@ class SignUp extends Component {
             password: '',
             confirmPassword: ''
         },
-        // userEmailAddresses: [],
         redirectToProfile: false
     }
 
@@ -60,6 +59,7 @@ class SignUp extends Component {
 
     render() {
         if (this.state.redirectToProfile) {
+            console.log("REDIRECT", this.state.redirectToProfile)
             return <Redirect to={`/${this.state.newUser.emailAddress}`} />
         }
         

@@ -95,10 +95,19 @@ router.delete('/:userId', async (request, response) => {
     }
 })
 
-router.patch('/:userId', async (request, response) => {
+router.patch('/', async (request, response) => {
     try {
-        const updatedUserInfo = await User.findByIdAndUpdate(request.params.userId, request.body, { new: true })
-        response.json(updatedUserInfo)
+        console.log(request.body);
+        const editUser = await User.findOneAndUpdate({ 'emailAddress': request.body.originalEmailAddress }, request.body.editUser, {new: true})
+        console.log("TEST", editUser);
+        let redirectStatus = false
+        if (request.body.originalEmailAddress !== request.body.editUser.emailAddress) {
+            redirectStatus = true
+        }
+        response.json({
+            editUser,
+            redirectToNewUrl: redirectStatus
+        })
     }
     catch (err) {
         console.log(err)
