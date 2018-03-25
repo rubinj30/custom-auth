@@ -47,7 +47,6 @@ class SignUp extends Component {
                 if (response.data.error) {
                     swal(response.data.error)
                 } else {
-                    console.log(response.data.newUser)
                     localStorage.setItem('emailAddress', response.data.newUser.emailAddress)
                     this.setState(
                         {

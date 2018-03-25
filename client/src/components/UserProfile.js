@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom'
 import styled from 'styled-components'
 import { InputField, CenterColumn, Button, ColumnTitle } from './styled-components/Styling'
-import EditUserForm from './EditUserForm'
 import axios from 'axios'
 import HeaderBar from './HeaderBar'
 import swal from 'sweetalert'
@@ -24,9 +23,7 @@ class UserProfile extends Component {
 
     getUser = async () => {
         const emailAddress = localStorage.getItem('emailAddress')
-        console.log(emailAddress);
         const response = await axios.get(`/api/users/${emailAddress}`)
-        console.log(response.data);
         this.setState({ 
             user: response.data,
             originalEmailAddress: localStorage.emailAddress
@@ -60,12 +57,10 @@ class UserProfile extends Component {
             } else {
                 
                 const response = await axios.patch('/api/users', this.state)
-                console.log("RESPONSE", response.data)
                 if (response.data.error) {
                     // if e-mail exists, this will notify the user
                     swal(response.data.error)
                 } else {
-                    console.log("RESPONSE", response.data)
                     localStorage.setItem('emailAddress', response.data.emailAddress)
                     this.setState({
                         user: response.data,
@@ -82,7 +77,7 @@ class UserProfile extends Component {
 
     deleteUser = async () => {
         const user = await axios.delete(`/api/users/${this.state.originalEmailAddress}`)
-        console.log("DELET USER RESPONSE", user)
+        swal(`Deleted ${user.data.emailAddress}'s profile`)
         this.setState({redirectToNewUrl: !this.state.redirectToNewUrl})
     }
 
