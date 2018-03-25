@@ -8,7 +8,7 @@ class UserProfile extends Component {
 
     state = {
         user: {},
-        editShowing: true
+        editShowing: false
     }
 
     componentWillMount = () => {

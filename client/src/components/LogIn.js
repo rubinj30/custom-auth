@@ -26,8 +26,7 @@ class LogIn extends Component {
 
         console.log("PAYLOAD", payload)
         const response = await axios.post('/api/users/login', payload)
-        console.log(response.data);
-        const newState = response.data
+        localStorage.setItem('emailAddress', response.data.emailAddress)
         this.setState({
             redirectToProfile: response.data.redirectToProfile,
             emailAddress: response.data.emailAddress
