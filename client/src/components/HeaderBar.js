@@ -7,7 +7,6 @@ class HeaderBar extends Component {
 
     logOut = () => {
         localStorage.clear()
-        this.setState({})
     }
 
     render() {
