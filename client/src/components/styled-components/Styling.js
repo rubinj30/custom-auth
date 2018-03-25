@@ -2,7 +2,7 @@ import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 
 export const InputField = styled.input`
-    height: 48px;
+    height: 32px;
     font-style: italic;
     padding: 6px 12px;
     font-size: 18px;
@@ -48,7 +48,6 @@ export const ColumnTitle = styled.div`
     font-size: 35px;
     font-weight: bold;
     color: #228848;
-
 `
 
 export const StyledLink = styled(Link)`

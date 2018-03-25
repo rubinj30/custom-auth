@@ -33,20 +33,25 @@ class UserProfile extends Component {
             <div>
                 <HeaderBar />
                 <CenterColumn>
-                    <ColumnTitle>User Profile</ColumnTitle>
-                    <Button onClick={this.toggleEdit}>Edit</Button>
+                    
                     {
                         this.state.editShowing ?
-                            <EditUserForm
-                                user={this.state.user}
-                            />
+                            <CenterColumn>
+                                <ColumnTitle>User Profile</ColumnTitle>
+                                <Button onClick={this.toggleEdit}>Edit User Info</Button>
+                                <EditUserForm
+                                    user={this.state.user}
+                                />
+                            </CenterColumn>
                             :
-                            <div>
+                            <CenterColumn>
+                                <ColumnTitle>User Profile</ColumnTitle>
+                                <Button onClick={this.toggleEdit}>Cancel Edits</Button>
                                 <ProfileDiv>{this.state.user.firstName}</ProfileDiv>
                                 <ProfileDiv>{this.state.user.lastName}</ProfileDiv>
                                 <ProfileDiv>{this.state.user.emailAddress}</ProfileDiv>
                                 <ProfileDiv>{this.state.user.phoneNumber}</ProfileDiv>
-                            </div>
+                            </CenterColumn>
                     }
                 </CenterColumn>
             </div>

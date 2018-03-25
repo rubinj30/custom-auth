@@ -12,9 +12,22 @@ class EditUserForm extends Component {
             password: '',
             confirmPassword: ''
         }
-
     }
-    
+
+    clearChanges = (event) => {
+        event.preventDefault()
+        this.setState({
+            editUser: {
+                firstName: this.props.user.firstName,
+                lastName: this.props.user.lastName,
+                emailAddress: this.props.user.emailAddress,
+                phoneNumber: this.props.user.phoneNumber,
+                password: '',
+                confirmPassword: ''
+            }
+        })
+    }
+
     handleChange = (event) => {
         event.preventDefault()
         const attributeName = event.target.name
@@ -25,7 +38,7 @@ class EditUserForm extends Component {
     }
 
     updateUser = () => {
-        
+
     }
 
     render() {
@@ -44,9 +57,8 @@ class EditUserForm extends Component {
                         placeholder="Password" name="password" type="password" required />
                     <InputField onChange={this.handleChange}
                         placeholder="Confirm Password" name="confirmPassword" type="password" required />
-                    <ButtonContainer>
-                        <Button>Update User Info</Button>
-                    </ButtonContainer>
+                    <Button>Update User Info</Button>
+                    <Button onClick={this.clearChanges}>Reset Changes</Button>
                 </CenterColumn>
             </form>
         );
