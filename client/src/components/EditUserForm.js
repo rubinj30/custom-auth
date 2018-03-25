@@ -58,11 +58,11 @@ class EditUserForm extends Component {
                     <InputField onChange={this.handleChange}
                         placeholder="Confirm Password" name="confirmPassword" type="password" required />
                     <Button onClick={this.updateUser}>Update User Info</Button>
-                    <Button onClick={this.clearChanges}>Reset Changes</Button>
                 </CenterColumn>
             </form>
         );
     }
 }
 
-export default EditUserForm;
+export default EditUserForm
+

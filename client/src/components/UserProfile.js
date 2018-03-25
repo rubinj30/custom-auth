@@ -38,7 +38,7 @@ class UserProfile extends Component {
                         this.state.editShowing ?
                             <CenterColumn>
                                 <ColumnTitle>User Profile</ColumnTitle>
-                                <Button onClick={this.toggleEdit}>Cancel Edits</Button>
+                                <ReversedButton onClick={this.toggleEdit}>Cancel Edits</ReversedButton>
                                 <EditUserForm
                                     user={this.state.user}
                                 />
@@ -64,4 +64,21 @@ export default UserProfile;
 const ProfileDiv = styled.div`
     padding: 10px;
     font-size: 20px;
+`
+
+const ReversedButton = styled.button`
+    font-size: 16px;
+    text-transform: uppercase;
+    padding: 4px 20px;
+    height: 30px;
+    margin-top: 5px;
+    width: 200px;
+    text-align: center;
+    color: #228848;
+    text-decoration: none;
+    background-color: #228848;
+    color: white;
+    &:hover {
+        border: 1px solid #228848;
+    }
 `
