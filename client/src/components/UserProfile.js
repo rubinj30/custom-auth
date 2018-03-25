@@ -69,7 +69,7 @@ class UserProfile extends Component {
                     localStorage.setItem('emailAddress', response.data.emailAddress)
                     this.setState({
                         user: response.data,
-                        redirectToNewUrl: true,
+                        // redirectToNewUrl: true,
                         editShowing: false
                     })
                 }
@@ -80,10 +80,16 @@ class UserProfile extends Component {
         }
     }
 
+    deleteUser = async () => {
+        const user = await axios.delete(`/api/users/${this.state.originalEmailAddress}`)
+        console.log("DELET USER RESPONSE", user)
+        this.setState({redirectToNewUrl: !this.state.redirectToNewUrl})
+    }
+
     render() {
 
         if (this.state.redirectToNewUrl) {
-            // return <Redirect to={`/`} />
+            return <Redirect to={`/`} />
         }
 
         return (
@@ -121,6 +127,7 @@ class UserProfile extends Component {
                                 <ProfileDiv>{this.state.user.phoneNumber}</ProfileDiv>
                             </CenterColumn>
                     }
+                    <DeleteButton onClick={this.deleteUser}>Delete User</DeleteButton>
                 </CenterColumn>
             </div>
         );
@@ -148,5 +155,22 @@ const ReversedButton = styled.button`
     color: white;
     &:hover {
         border: 1px solid #228848;
+    }
+`
+
+const DeleteButton = styled.button`
+    font-size: 16px;
+    text-transform: uppercase;
+    border: 1px solid #228848;
+    padding: 4px 20px;
+    height: 30px;
+    margin-top: 5px;
+    width: 200px;
+    text-align: center;
+    color: #228848;
+    text-decoration: none;
+    &:hover {
+        background-color: red;
+        color: white;
     }
 `

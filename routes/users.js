@@ -88,10 +88,11 @@ router.post('/', async (request, response) => {
     }
 })
 
-router.delete('/:userId', async (request, response) => {
+router.delete('/:emailAddress', async (request, response) => {
     try {
-        const user = await User.findByIdAndRemove(request.params.userId)
-        response.send(user)
+        const user = await User.findOneAndRemove({emailAddress: request.params.emailAddress})
+        console.log("DELETE ", user);
+        response.json(user)
     }
     catch (err) {
         console.log(err)
