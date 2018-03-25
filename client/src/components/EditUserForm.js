@@ -57,7 +57,7 @@ class EditUserForm extends Component {
                         placeholder="Password" name="password" type="password" required />
                     <InputField onChange={this.handleChange}
                         placeholder="Confirm Password" name="confirmPassword" type="password" required />
-                    <Button>Update User Info</Button>
+                    <Button onClick={this.updateUser}>Update User Info</Button>
                     <Button onClick={this.clearChanges}>Reset Changes</Button>
                 </CenterColumn>
             </form>

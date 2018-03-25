@@ -38,7 +38,7 @@ class UserProfile extends Component {
                         this.state.editShowing ?
                             <CenterColumn>
                                 <ColumnTitle>User Profile</ColumnTitle>
-                                <Button onClick={this.toggleEdit}>Edit User Info</Button>
+                                <Button onClick={this.toggleEdit}>Cancel Edits</Button>
                                 <EditUserForm
                                     user={this.state.user}
                                 />
@@ -46,7 +46,7 @@ class UserProfile extends Component {
                             :
                             <CenterColumn>
                                 <ColumnTitle>User Profile</ColumnTitle>
-                                <Button onClick={this.toggleEdit}>Cancel Edits</Button>
+                                <Button onClick={this.toggleEdit}>Edit User Info</Button>
                                 <ProfileDiv>{this.state.user.firstName}</ProfileDiv>
                                 <ProfileDiv>{this.state.user.lastName}</ProfileDiv>
                                 <ProfileDiv>{this.state.user.emailAddress}</ProfileDiv>
