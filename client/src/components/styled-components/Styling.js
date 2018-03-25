@@ -23,6 +23,7 @@ export const Button = styled.button`
     text-transform: uppercase;
     border: 1px solid #228848;
     padding: 4px 20px;
+    height: 30px;
     margin-top: 5px;
     width: 200px;
     text-align: center;

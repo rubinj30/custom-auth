@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { LogoImg, CenterColumn, Button, ColumnTitle } from './styled-components/Styling'
 import EditUserForm from './EditUserForm'
 import axios from 'axios'
+import HeaderBar from './HeaderBar'
 
 class UserProfile extends Component {
 
@@ -30,7 +31,7 @@ class UserProfile extends Component {
     render() {
         return (
             <div>
-                <LogoImg width="200" src="https://assets.hmwallace.com//sources/images/supply_logo-unboxed.svg" alt="supply.com logo" />
+                <HeaderBar />
                 <CenterColumn>
                     <ColumnTitle>User Profile</ColumnTitle>
                     <Button onClick={this.toggleEdit}>Edit</Button>
