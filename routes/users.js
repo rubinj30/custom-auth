@@ -23,7 +23,10 @@ router.get('/', async (request, response) => {
 router.post('/login', async (request, response) => {
     try {
         const user = await User.find({ 'emailAddress': request.body.emailAddress })
-        if (bcrypt.compareSync(request.body.password, user[0].password)) {
+        if (user.length < 1) {
+            console.log("USER USER USER", user);
+            response.json({error: "That e-mail does not belong to a user"})
+        } else if (bcrypt.compareSync(request.body.password, user[0].password)) {
             console.log("CORRECT PASSWORD")
             response.json({
                 emailAddress: request.body.emailAddress,
@@ -98,7 +101,7 @@ router.delete('/:userId', async (request, response) => {
 router.patch('/', async (request, response) => {
     try {
         console.log(request.body);
-        const user = await User.findOneAndUpdate({ 'emailAddress': request.body.originalEmailAddress }, request.body.user, {new: true})
+        const user = await User.findOneAndUpdate({ 'emailAddress': request.body.originalEmailAddress }, request.body.user, { new: true })
         console.log("TEST", user)
         response.json(user)
     }
