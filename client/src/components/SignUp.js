@@ -79,9 +79,8 @@ class SignUp extends Component {
                             placeholder="Last Name" name="lastName" required />
                         <InputField onChange={this.handleChange}
                             placeholder="E-mail" name="emailAddress" required />
-                        <label>ex: 555-555-555</label>
                         <InputField onChange={this.handleChange}
-                            placeholder="Phone Number" name="phoneNumber" required />
+                            placeholder="Phone (555-555-5555)" name="phoneNumber" required />
                         <InputField onChange={this.handleChange}
                             placeholder="Password" name="password" type="password" required />
                         <InputField onChange={this.handleChange}

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import styled from 'styled-components'
-import { LogoImg, CenterColumn, Button, ColumnTitle } from './styled-components/Styling'
+import { CenterColumn, Button, ColumnTitle } from './styled-components/Styling'
 import EditUserForm from './EditUserForm'
 import axios from 'axios'
 import HeaderBar from './HeaderBar'

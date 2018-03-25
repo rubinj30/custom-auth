@@ -10,6 +10,7 @@ export const InputField = styled.input`
     color: #222223;
     background-color: #fff;
     margin: 5px;
+    width: 250px;
 `
 
 export const CenterColumn = styled.div`
