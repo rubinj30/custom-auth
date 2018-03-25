@@ -4,6 +4,7 @@ import { CenterColumn, InputField, Button } from './styled-components/Styling'
 import axios from 'axios'
 import swal from 'sweetalert'
 import validator from 'validator'
+var isPhoneNumber = require('is-phone-number');
 
 class EditUserForm extends Component {
 
@@ -37,7 +38,9 @@ class EditUserForm extends Component {
             } else if (this.state.editUser.password !== this.state.editUser.confirmPassword) {
                 swal('The password and confirmation must match!')
             } else if (!validator.isEmail(this.state.editUser.emailAddress)) {
-                swal('Make sure you are using a valid e-mail address!')
+                swal('You must use a valid e-mail address')
+            } else if (!isPhoneNumber(this.state.editUser.phoneNumber)) {
+                swal('You must use a valid phone number')
             } else {
                 const response = await axios.patch('/api/users', this.state)
 
@@ -74,6 +77,7 @@ class EditUserForm extends Component {
                         placeholder="Last Name" name="lastName" value={this.state.editUser.lastName} required />
                     <InputField onChange={this.handleChange}
                         placeholder="E-mail" name="emailAddress" value={this.state.editUser.emailAddress} required />
+                    <label>ex: 555-555-555</label>
                     <InputField onChange={this.handleChange}
                         placeholder="Phone Number" name="phoneNumber" value={this.state.editUser.phoneNumber} required />
                     <InputField onChange={this.handleChange}

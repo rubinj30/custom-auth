@@ -66,7 +66,7 @@ class SignUp extends Component {
             console.log("REDIRECT", this.state.redirectToProfile)
             return <Redirect to={`/${this.state.newUser.emailAddress}`} />
         }
-        
+
         return (
             <div>
                 <LogoImg width="200" src="https://assets.hmwallace.com//sources/images/supply_logo-unboxed.svg" alt="supply.com logo" />
@@ -79,6 +79,7 @@ class SignUp extends Component {
                             placeholder="Last Name" name="lastName" required />
                         <InputField onChange={this.handleChange}
                             placeholder="E-mail" name="emailAddress" required />
+                        <label>ex: 555-555-555</label>
                         <InputField onChange={this.handleChange}
                             placeholder="Phone Number" name="phoneNumber" required />
                         <InputField onChange={this.handleChange}
