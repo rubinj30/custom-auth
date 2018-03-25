@@ -3,6 +3,7 @@ import { Redirect } from 'react-router-dom'
 import { InputField, CenterColumn, LogoImg, Button, ButtonContainer, ColumnTitle, StyledLink } from './styled-components/Styling'
 import axios from 'axios'
 import swal from 'sweetalert'
+import validator from 'validator'
 
 class LogIn extends Component {
 
@@ -18,22 +19,31 @@ class LogIn extends Component {
     }
 
     logUserIn = async (event) => {
-        event.preventDefault()
+        try {
+            event.preventDefault()
+            if (validator.isEmail(this.state.emailAddress)) {
+                const payload = {
+                    emailAddress: this.state.emailAddress,
+                    password: this.state.password
+                }
 
-        const payload = {
-            emailAddress: this.state.emailAddress,
-            password: this.state.password
+                const response = await axios.post('/api/users/login', payload)
+                if (!response.data.error) {
+                    localStorage.setItem('emailAddress', response.data.emailAddress)
+                    this.setState({
+                        redirectToProfile: response.data.redirectToProfile,
+                        emailAddress: response.data.emailAddress
+                    })
+                } else {
+                    swal(response.data.error)
+                }
+            }
+            else {
+                swal("That is not a valid e-mail!")
+            }
         }
-
-        const response = await axios.post('/api/users/login', payload)
-        if (!response.data.error) {
-            localStorage.setItem('emailAddress', response.data.emailAddress)
-            this.setState({
-                redirectToProfile: response.data.redirectToProfile,
-                emailAddress: response.data.emailAddress
-            })
-        } else {
-            swal(response.data.error)
+        catch (err) {
+            console.log(err)
         }
     }
 
