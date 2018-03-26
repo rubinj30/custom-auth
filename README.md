@@ -9,7 +9,10 @@ https://supply-accounts.herokuapp.com/
 - Express.js (I still want to try dust.js soon)
 - Node.js
 - React.js 
-- Heroku
+
+### To setup
+- add .env file to the root folder with the mongo database
+- install npm dependencies in both the root and client folder
 
 
 
