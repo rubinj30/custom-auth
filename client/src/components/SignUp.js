@@ -1,12 +1,21 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom'
-import { LogoImg, CenterColumn, InputField, ButtonContainer, Button, ColumnTitle, StyledLink } from './styled-components/Styling'
+import { Label, LogoImg, CenterColumn, InputField, ButtonContainer, Button, ColumnTitle, StyledLink } from './styled-components/Styling'
 import axios from 'axios'
 import swal from 'sweetalert'
 import validator from 'validator'
-var isPhoneNumber = require('is-phone-number');
-
+const isPhoneNumber = require('is-phone-number');
 // const R = require('ramda');
+const passwordValidator = require('password-validator');
+
+const schema = new passwordValidator();
+schema
+    .is().min(6)
+    .is().max(20)
+    .has().uppercase()
+    .has().lowercase()
+    .has().not().spaces()
+    .is().not().oneOf(['password', 'Password', 'Passw0rd', 'Password123']);
 
 class SignUp extends Component {
     state = {
@@ -33,10 +42,10 @@ class SignUp extends Component {
     addNewUser = async (event) => {
         try {
             event.preventDefault()
-            if (this.state.newUser.password.length < 2) {
-                swal('The password must be at least 8 characters')
+            if (!schema.validate(this.state.newUser.password)) {
+                swal('That is not a valid password')
             } else if (this.state.newUser.password !== this.state.newUser.confirmPassword) {
-                swal('The password and confirmation must match!')
+                swal('The password and confirmation must match')
             } else if (!validator.isEmail(this.state.newUser.emailAddress)) {
                 swal('You must use a valid e-mail address')
             } else if (!isPhoneNumber(this.state.newUser.phoneNumber)) {
@@ -62,7 +71,6 @@ class SignUp extends Component {
 
     render() {
         if (this.state.redirectToProfile) {
-            console.log("REDIRECT", this.state.redirectToProfile)
             return <Redirect to={`/${this.state.newUser.emailAddress}`} />
         }
 
@@ -79,9 +87,10 @@ class SignUp extends Component {
                         <InputField onChange={this.handleChange}
                             placeholder="E-mail" name="emailAddress" required />
                         <InputField onChange={this.handleChange}
-                            placeholder="Phone (555-555-5555)" name="phoneNumber" required />
+                            placeholder="Phone (ex: 555-555-5555)" name="phoneNumber" required />
                         <InputField onChange={this.handleChange}
                             placeholder="Password" name="password" type="password" required />
+                        <Label>* 6-20 characters, have at least one uppercase letter, one lowercase letter, one digit, no spaces</Label>
                         <InputField onChange={this.handleChange}
                             placeholder="Confirm Password" name="confirmPassword" type="password" required />
                         <ButtonContainer>
@@ -96,3 +105,4 @@ class SignUp extends Component {
 }
 
 export default SignUp;
+

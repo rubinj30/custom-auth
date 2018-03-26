@@ -54,3 +54,9 @@ export const ColumnTitle = styled.div`
 export const StyledLink = styled(Link)`
     text-decoration: none;
 `
+
+export const Label = styled.label`
+    font-size: 10px;
+    color: grey;
+    width: 250px;
+`

@@ -1,12 +1,22 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom'
 import styled from 'styled-components'
-import { InputField, CenterColumn, Button, ColumnTitle } from './styled-components/Styling'
+import { Label, InputField, CenterColumn, Button, ColumnTitle } from './styled-components/Styling'
 import axios from 'axios'
 import HeaderBar from './HeaderBar'
 import swal from 'sweetalert'
 import validator from 'validator'
-var isPhoneNumber = require('is-phone-number');
+const isPhoneNumber = require('is-phone-number');
+
+const passwordValidator = require('password-validator');
+const schema = new passwordValidator();
+schema
+    .is().min(6)
+    .is().max(20)
+    .has().uppercase()
+    .has().lowercase()
+    .has().not().spaces()
+    .is().not().oneOf(['password', 'Password', 'Passw0rd', 'Password123']);
 
 class UserProfile extends Component {
 
@@ -24,7 +34,7 @@ class UserProfile extends Component {
     getUser = async () => {
         const emailAddress = localStorage.getItem('emailAddress')
         const response = await axios.get(`/api/users/${emailAddress}`)
-        this.setState({ 
+        this.setState({
             user: response.data,
             originalEmailAddress: localStorage.emailAddress
         })
@@ -46,8 +56,8 @@ class UserProfile extends Component {
     updateUser = async (event) => {
         try {
             event.preventDefault()
-            if (this.state.user.password.length < 2) {
-                swal('The password must be at least 8 characters')
+            if (!schema.validate(this.state.newUser.password)) {
+                swal('That is not a valid password')
             } else if (this.state.user.password !== this.state.user.confirmPassword) {
                 swal('The password and confirmation must match!')
             } else if (!validator.isEmail(this.state.user.emailAddress)) {
@@ -55,7 +65,7 @@ class UserProfile extends Component {
             } else if (!isPhoneNumber(this.state.user.phoneNumber)) {
                 swal('You must use a valid phone number')
             } else {
-                
+
                 const response = await axios.patch('/api/users', this.state)
                 if (response.data.error) {
                     // if e-mail exists, this will notify the user
@@ -78,7 +88,7 @@ class UserProfile extends Component {
     deleteUser = async () => {
         const user = await axios.delete(`/api/users/${this.state.originalEmailAddress}`)
         swal(`Deleted ${user.data.emailAddress}'s profile`)
-        this.setState({redirectToNewUrl: !this.state.redirectToNewUrl})
+        this.setState({ redirectToNewUrl: !this.state.redirectToNewUrl })
     }
 
     render() {
@@ -103,11 +113,11 @@ class UserProfile extends Component {
                                     placeholder="Last Name" name="lastName" value={this.state.user.lastName} required />
                                 <InputField onChange={this.handleChange}
                                     placeholder="E-mail" name="emailAddress" value={this.state.user.emailAddress} required />
-                                <label>ex: 555-555-555</label>
                                 <InputField onChange={this.handleChange}
-                                    placeholder="Phone Number" name="phoneNumber" value={this.state.user.phoneNumber} required />
+                                    placeholder="Phone (ex: 555-555-5555)" name="phoneNumber" value={this.state.user.phoneNumber} required />
                                 <InputField onChange={this.handleChange}
                                     placeholder="Password" name="password" type="password" required />
+                                <Label>* 6-20 characters, have at least one uppercase letter, one lowercase letter, one digit, no spaces</Label>
                                 <InputField onChange={this.handleChange}
                                     placeholder="Confirm Password" name="confirmPassword" type="password" required />
                                 <Button onClick={this.updateUser}>Update User Info</Button>
