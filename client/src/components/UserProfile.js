@@ -66,16 +66,15 @@ class UserProfile extends Component {
             } else if (!isPhoneNumber(this.state.user.phoneNumber)) {
                 swal('You must use a valid phone number including dashes or dashes and parentheses')
             } else {
-
                 const response = await axios.patch('/api/users', this.state)
                 if (response.data.error) {
+
                     // if e-mail exists, this will notify the user
                     swal(response.data.error)
                 } else {
                     localStorage.setItem('emailAddress', response.data.emailAddress)
                     this.setState({
                         user: response.data,
-                        // redirectToNewUrl: true,
                         editShowing: false
                     })
                 }
@@ -89,6 +88,7 @@ class UserProfile extends Component {
     deleteUser = async () => {
         const user = await axios.delete(`/api/users/${this.state.originalEmailAddress}`)
         swal(`Deleted ${user.data.emailAddress}'s profile`)
+        localStorage.clear()
         this.setState({ redirectToNewUrl: !this.state.redirectToNewUrl })
     }
 
