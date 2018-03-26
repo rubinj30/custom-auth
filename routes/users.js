@@ -62,7 +62,7 @@ router.post('/', async (request, response) => {
             bcrypt.hash(request.body.password, saltRounds, async (err, hash) => {
                 const user = {
                     firstName: request.body.firstName,
-                    lastName: request.body.firstName,
+                    lastName: request.body.lastName,
                     emailAddress: request.body.emailAddress,
                     phoneNumber: request.body.phoneNumber,
                     password: hash

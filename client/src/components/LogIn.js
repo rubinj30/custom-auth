@@ -59,7 +59,7 @@ class LogIn extends Component {
                     <CenterColumn>
                         <ColumnTitle>Log In</ColumnTitle>
                         <InputField onChange={this.handleChange} placeholder="E-mail Address" name="emailAddress" required />
-                        <InputField onChange={this.handleChange} placeholder="Password" name="password" required />
+                        <InputField onChange={this.handleChange} placeholder="Password" name="password" type="password" required />
                         <ButtonContainer>
                             <Button>Log In</Button>
                             <StyledLink to={'/'}><Button>Back to Home</Button></StyledLink>

@@ -42,6 +42,8 @@ export const LogoImg = styled.img`
 
 export const ButtonContainer = styled.div`
     padding: 30px;
+    display: flex;
+    flex-direction: column;
 `
 
 export const ColumnTitle = styled.div`

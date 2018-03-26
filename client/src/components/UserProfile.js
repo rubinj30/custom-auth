@@ -64,7 +64,7 @@ class UserProfile extends Component {
             } else if (!validator.isEmail(this.state.user.emailAddress)) {
                 swal('You must use a valid e-mail address')
             } else if (!isPhoneNumber(this.state.user.phoneNumber)) {
-                swal('You must use a valid phone number')
+                swal('You must use a valid phone number including dashes or dashes and parentheses')
             } else {
 
                 const response = await axios.patch('/api/users', this.state)
