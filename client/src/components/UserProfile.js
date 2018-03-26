@@ -55,8 +55,9 @@ class UserProfile extends Component {
 
     updateUser = async (event) => {
         try {
+            console.log("Updating");
             event.preventDefault()
-            if (!schema.validate(this.state.newUser.password)) {
+            if (!schema.validate(this.state.user.password)) {
                 swal('That is not a valid password')
             } else if (this.state.user.password !== this.state.user.confirmPassword) {
                 swal('The password and confirmation must match!')
