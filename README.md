@@ -1,5 +1,5 @@
-# Simple Accounts Project
-The app has custom authentication and allows for creating, editing, and deleting of user accounts
+# Sample Accounts Project
+The sample app was practice to understand basic authentication. It has custom authentication and allows for creating, editing, and deleting of user accounts.
 
 ## Heroku Link
 https://supply-accounts.herokuapp.com/
