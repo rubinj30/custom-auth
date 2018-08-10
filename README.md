@@ -6,7 +6,7 @@ https://supply-accounts.herokuapp.com/
 
 ### Technology used
 - MongoDB
-- Express.js (I still want to try dust.js soon)
+- Express.js
 - Node.js
 - React.js 
 
